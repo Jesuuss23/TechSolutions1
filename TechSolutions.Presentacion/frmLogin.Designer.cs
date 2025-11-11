@@ -39,7 +39,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(673, 76);
+            label1.Location = new Point(248, 68);
             label1.Name = "label1";
             label1.Size = new Size(62, 20);
             label1.TabIndex = 0;
@@ -49,7 +49,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(621, 151);
+            label2.Location = new Point(224, 152);
             label2.Name = "label2";
             label2.Size = new Size(86, 20);
             label2.TabIndex = 1;
@@ -57,7 +57,7 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(413, 67);
+            btnLogin.Location = new Point(216, 286);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(94, 29);
             btnLogin.TabIndex = 2;
@@ -67,7 +67,7 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(429, 142);
+            btnCancelar.Location = new Point(536, 286);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(94, 29);
             btnCancelar.TabIndex = 3;
@@ -76,14 +76,14 @@
             // 
             // txtUsuario
             // 
-            txtUsuario.Location = new Point(505, 218);
+            txtUsuario.Location = new Point(380, 65);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(125, 27);
             txtUsuario.TabIndex = 4;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(545, 288);
+            txtPassword.Location = new Point(380, 149);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(125, 27);

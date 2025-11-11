@@ -7,6 +7,10 @@ namespace TechSolutions.Presentacion
     public partial class frmLogin : Form
     {
         private readonly UsuarioBLL _usuarioBLL = new UsuarioBLL();
+        // Esta propiedad pública guardará al usuario para que Program.cs
+        // lo pueda "recoger" después de que el formulario se cierre.
+        public Usuario UsuarioLogueado { get; private set; }
+        // ------------------------------
         public frmLogin()
         {
             InitializeComponent();
@@ -19,51 +23,35 @@ namespace TechSolutions.Presentacion
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            // 1. Obtener los datos del formulario
             string nombreUsuario = txtUsuario.Text;
             string password = txtPassword.Text;
 
             try
             {
-                // 2. Llamar a la BLL (el "gerente")
-                //    No sabemos qué pasa "detrás", solo pedimos el login.
                 Usuario usuarioValidado = _usuarioBLL.Login(nombreUsuario, password);
 
-                // 3. Evaluar la respuesta de la BLL
                 if (usuarioValidado != null)
                 {
                     // ¡ÉXITO!
-                    MessageBox.Show(
-                        $"¡Bienvenido, {usuarioValidado.NombreUsuario}! (Rol: {usuarioValidado.NombreRol})",
-                        "Login Exitoso",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                    // 1. Guardamos el usuario en nuestra nueva propiedad
+                    this.UsuarioLogueado = usuarioValidado;
 
-                    // Aquí es donde abrirías el formulario principal (Menu)
-                    // y cerrarías este formulario de login.
-                    // Ejemplo:
-                    //   frmMenuPrincipal menu = new frmMenuPrincipal(usuarioValidado);
-                    //   menu.Show();
-                    //   this.Hide(); 
+                    // 2. Le decimos al 'ShowDialog()' que el resultado fue "OK"
+                    this.DialogResult = DialogResult.OK;
+
+                    // 3. Cerramos este formulario de login
+                    this.Close();
                 }
                 else
                 {
-                    // FRACASO: El login falló (usuario o clave incorrectos)
-                    MessageBox.Show(
-                        "Usuario o contraseña incorrectos.",
-                        "Error de Login",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                    // FRACASO
+                    MessageBox.Show("Usuario o contraseña incorrectos.", "Error de Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // No cerramos el formulario
                 }
             }
             catch (Exception ex)
             {
-                // ERROR: Ocurrió un error (ej. se cayó la BD)
-                MessageBox.Show(
-                    "Error al intentar conectar: " + ex.Message,
-                    "Error Crítico",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Stop);
+                MessageBox.Show("Error al intentar conectar: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
