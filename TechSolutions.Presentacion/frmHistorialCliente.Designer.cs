@@ -39,6 +39,7 @@
             btnImprimirHistorial = new Button();
             docImprimirHistorial = new System.Drawing.Printing.PrintDocument();
             vistaPreviaHistorial = new PrintPreviewDialog();
+            btnEnviarCorreo = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvHistorial).BeginInit();
             SuspendLayout();
             // 
@@ -107,7 +108,7 @@
             // 
             // btnImprimirHistorial
             // 
-            btnImprimirHistorial.Location = new Point(800, 404);
+            btnImprimirHistorial.Location = new Point(866, 408);
             btnImprimirHistorial.Name = "btnImprimirHistorial";
             btnImprimirHistorial.Size = new Size(152, 57);
             btnImprimirHistorial.TabIndex = 7;
@@ -130,11 +131,22 @@
             vistaPreviaHistorial.Name = "vistaPreviaHistorial";
             vistaPreviaHistorial.Visible = false;
             // 
+            // btnEnviarCorreo
+            // 
+            btnEnviarCorreo.Location = new Point(581, 411);
+            btnEnviarCorreo.Name = "btnEnviarCorreo";
+            btnEnviarCorreo.Size = new Size(151, 54);
+            btnEnviarCorreo.TabIndex = 8;
+            btnEnviarCorreo.Text = "Enviar por Correo";
+            btnEnviarCorreo.UseVisualStyleBackColor = true;
+            btnEnviarCorreo.Click += btnEnviarCorreo_Click;
+            // 
             // frmHistorialCliente
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1152, 552);
+            Controls.Add(btnEnviarCorreo);
             Controls.Add(btnImprimirHistorial);
             Controls.Add(dgvHistorial);
             Controls.Add(btnBuscarHistorial);
@@ -162,5 +174,6 @@
         private Button btnImprimirHistorial;
         private System.Drawing.Printing.PrintDocument docImprimirHistorial;
         private PrintPreviewDialog vistaPreviaHistorial;
+        private Button btnEnviarCorreo;
     }
 }

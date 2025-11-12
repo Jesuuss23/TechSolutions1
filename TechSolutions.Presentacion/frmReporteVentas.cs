@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 using TechSolutions.BLL;
 using TechSolutions.Entidades;
 
@@ -18,6 +19,7 @@ namespace TechSolutions.Presentacion
         // --- AÑADE LA INSTANCIA DE LA BLL ---
         private readonly ReporteBLL _reporteBLL = new ReporteBLL();
         // ------------------------------------
+        private readonly EmailHelper _emailHelper = new EmailHelper();
         public frmReporteVentas()
         {
             InitializeComponent();
@@ -167,6 +169,62 @@ namespace TechSolutions.Presentacion
                 MessageBox.Show("Error al generar la vista de impresión: " + ex.Message);
             }
 
+        }
+
+        private async void btnEnviarCorreo_Click(object sender, EventArgs e)
+        {
+            // 1. Verificamos que haya datos
+            if (dgvReporteVentas.Rows.Count == 0)
+            {
+                MessageBox.Show("Primero debe generar un reporte para poder enviar.", "No hay datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. Pedimos el correo del destinatario
+            string emailDestino = Interaction.InputBox(
+                "Ingrese el correo electrónico del destinatario:",
+                "Enviar Reporte por Correo",
+                "");
+
+            // 3. Validamos el correo
+            if (string.IsNullOrEmpty(emailDestino) || !emailDestino.Contains("@"))
+            {
+                MessageBox.Show("Operación cancelada o correo electrónico no válido.", "Inválido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // 4. Preparamos los datos
+            List<ReporteVenta> reporte = (List<ReporteVenta>)dgvReporteVentas.DataSource;
+            DateTime fechaInicio = dtpFechaInicio.Value;
+            DateTime fechaFin = dtpFechaFin.Value;
+
+            // 5. --- INICIO ASÍNCRONO ---
+            btnEnviarCorreo.Enabled = false;
+            btnGenerarReporte.Enabled = false;
+            btnImprimir.Enabled = false;
+            this.Cursor = Cursors.WaitCursor;
+
+            try
+            {
+                // 6. Llamamos al Helper (al nuevo método)
+                await _emailHelper.EnviarReporteVentasAsync(emailDestino, fechaInicio, fechaFin, reporte);
+
+                // 7. ¡Éxito!
+                MessageBox.Show($"¡Reporte enviado exitosamente a {emailDestino}!", "Envío Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                // 8. Error
+                MessageBox.Show("Error inesperado al enviar el correo: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // 9. --- FIN ASÍNCRONO ---
+                btnEnviarCorreo.Enabled = true;
+                btnGenerarReporte.Enabled = true;
+                btnImprimir.Enabled = true;
+                this.Cursor = Cursors.Default;
+            }
         }
     }
 }

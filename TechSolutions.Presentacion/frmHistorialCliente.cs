@@ -6,6 +6,7 @@ using TechSolutions.BLL;
 using TechSolutions.Entidades;
 using System.Collections.Generic;
 // ----------------------------
+using Microsoft.VisualBasic;
 using System.Drawing;
 using System.Drawing.Printing;
 using System;
@@ -19,6 +20,7 @@ namespace TechSolutions.Presentacion
         private readonly ReporteBLL _reporteBLL = new ReporteBLL();
         private readonly int _idCliente;
         private readonly string _nombreCliente;
+        private readonly EmailHelper _emailHelper = new EmailHelper();
         // ------------------------------------
 
         // --- MODIFICA EL CONSTRUCTOR ---
@@ -176,6 +178,80 @@ namespace TechSolutions.Presentacion
             catch (Exception ex)
             {
                 MessageBox.Show("Error al generar la vista de impresión: " + ex.Message);
+            }
+
+        }
+
+        private async void btnEnviarCorreo_Click(object sender, EventArgs e)
+        {
+            // 1. Verificamos que haya datos en la cuadrícula
+            if (dgvHistorial.Rows.Count == 0)
+            {
+                MessageBox.Show(
+                    "Primero debe buscar un historial para poder enviar.",
+                    "No hay datos",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. Pedimos el correo del destinatario
+            string emailDestino = Interaction.InputBox(
+                "Ingrese el correo electrónico del destinatario:",
+                "Enviar Historial por Correo",
+                "");
+
+            // 3. Validamos el correo ingresado
+            if (string.IsNullOrEmpty(emailDestino) || !emailDestino.Contains("@"))
+            {
+                MessageBox.Show(
+                    "Operación cancelada o correo electrónico no válido.",
+                    "Inválido",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return;
+            }
+
+            // 4. Preparamos los datos (la lista del historial)
+            //    Obtenemos la lista que ya está en el DataGridView
+            List<ReporteHistorialCliente> historial = (List<ReporteHistorialCliente>)dgvHistorial.DataSource;
+
+            // 5. --- INICIO DE LA OPERACIÓN ASÍNCRONA ---
+            //    (Deshabilitamos botones y mostramos cursor de espera)
+            btnEnviarCorreo.Enabled = false;
+            btnBuscarHistorial.Enabled = false;
+            btnImprimirHistorial.Enabled = false;
+            this.Cursor = Cursors.WaitCursor;
+
+            try
+            {
+                // 6. Llamamos a nuestro Helper para que haga el trabajo
+                await _emailHelper.EnviarHistorialClienteAsync(emailDestino, _nombreCliente, historial);
+
+                // 7. ¡Éxito!
+                MessageBox.Show(
+                    $"¡Historial enviado exitosamente a {emailDestino}!",
+                    "Envío Exitoso",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                // 8. Capturamos cualquier error (ej. contraseña de Gmail incorrecta)
+                MessageBox.Show(
+                    "Error inesperado al enviar el correo: " + ex.Message,
+                    "Error Crítico",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // 9. --- FINALIZAR OPERACIÓN ---
+                //    (Rehabilitamos todo, incluso si falló)
+                btnEnviarCorreo.Enabled = true;
+                btnBuscarHistorial.Enabled = true;
+                btnImprimirHistorial.Enabled = true;
+                this.Cursor = Cursors.Default;
             }
 
         }

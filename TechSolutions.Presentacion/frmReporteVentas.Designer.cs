@@ -38,6 +38,7 @@
             btnImprimir = new Button();
             docImprimir = new System.Drawing.Printing.PrintDocument();
             vistaPreviaImpresion = new PrintPreviewDialog();
+            btnEnviarCorreo = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvReporteVentas).BeginInit();
             SuspendLayout();
             // 
@@ -119,11 +120,22 @@
             vistaPreviaImpresion.Name = "vistaPreviaImpresion";
             vistaPreviaImpresion.Visible = false;
             // 
+            // btnEnviarCorreo
+            // 
+            btnEnviarCorreo.Location = new Point(848, 202);
+            btnEnviarCorreo.Name = "btnEnviarCorreo";
+            btnEnviarCorreo.Size = new Size(122, 59);
+            btnEnviarCorreo.TabIndex = 7;
+            btnEnviarCorreo.Text = "Enviar por Correo";
+            btnEnviarCorreo.UseVisualStyleBackColor = true;
+            btnEnviarCorreo.Click += btnEnviarCorreo_Click;
+            // 
             // frmReporteVentas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1124, 496);
+            Controls.Add(btnEnviarCorreo);
             Controls.Add(btnImprimir);
             Controls.Add(dgvReporteVentas);
             Controls.Add(btnGenerarReporte);
@@ -149,5 +161,6 @@
         private Button btnImprimir;
         private System.Drawing.Printing.PrintDocument docImprimir;
         private PrintPreviewDialog vistaPreviaImpresion;
+        private Button btnEnviarCorreo;
     }
 }
