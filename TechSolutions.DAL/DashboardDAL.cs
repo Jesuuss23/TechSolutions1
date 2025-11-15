@@ -18,7 +18,6 @@ namespace TechSolutions.DAL
                     try
                     {
                         con.Open();
-                        // ExecuteScalar se usa para obtener un solo valor (el total)
                         return (decimal)cmd.ExecuteScalar();
                     }
                     catch (SqlException ex)

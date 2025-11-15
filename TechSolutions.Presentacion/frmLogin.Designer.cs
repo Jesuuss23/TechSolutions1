@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
             label1 = new Label();
             label2 = new Label();
             btnLogin = new Button();
@@ -39,9 +40,12 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(248, 68);
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(323, 69);
             label1.Name = "label1";
-            label1.Size = new Size(62, 20);
+            label1.Size = new Size(111, 35);
             label1.TabIndex = 0;
             label1.Text = "Usuario:";
             label1.Click += label1_Click;
@@ -49,51 +53,62 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(224, 152);
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(283, 141);
             label2.Name = "label2";
-            label2.Size = new Size(86, 20);
+            label2.Size = new Size(154, 35);
             label2.TabIndex = 1;
             label2.Text = "Contraseña:";
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(216, 286);
+            btnLogin.BackColor = Color.GreenYellow;
+            btnLogin.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            btnLogin.Location = new Point(648, 318);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(94, 29);
+            btnLogin.Size = new Size(148, 54);
             btnLogin.TabIndex = 2;
             btnLogin.Text = "Ingresar";
-            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(536, 286);
+            btnCancelar.BackColor = Color.Red;
+            btnCancelar.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            btnCancelar.Location = new Point(235, 318);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(94, 29);
+            btnCancelar.Size = new Size(153, 59);
             btnCancelar.TabIndex = 3;
             btnCancelar.Text = "Cancelar";
-            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.UseVisualStyleBackColor = false;
             // 
             // txtUsuario
             // 
-            txtUsuario.Location = new Point(380, 65);
+            txtUsuario.Font = new Font("Segoe UI", 12F);
+            txtUsuario.Location = new Point(488, 70);
             txtUsuario.Name = "txtUsuario";
-            txtUsuario.Size = new Size(125, 27);
+            txtUsuario.Size = new Size(175, 34);
             txtUsuario.TabIndex = 4;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(380, 149);
+            txtPassword.Font = new Font("Segoe UI", 12F);
+            txtPassword.Location = new Point(488, 142);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
-            txtPassword.Size = new Size(125, 27);
+            txtPassword.Size = new Size(175, 34);
             txtPassword.TabIndex = 5;
             // 
             // frmLogin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackColor = Color.White;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(951, 526);
             Controls.Add(txtPassword);
             Controls.Add(txtUsuario);
             Controls.Add(btnCancelar);

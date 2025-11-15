@@ -1,5 +1,4 @@
-﻿// --- Archivo: ReporteBLL.cs ---
-// --- Proyecto: TechSolutions.BLL ---
+﻿
 using System.Threading.Tasks;
 using TechSolutions.DAL;
 using TechSolutions.Entidades;
@@ -10,18 +9,10 @@ namespace TechSolutions.BLL
 {
     public class ReporteBLL
     {
-        // Instancia de la DAL de Reporte
         private readonly ReporteDAL _reporteDAL = new ReporteDAL();
 
-        /// <summary>
-        /// Lógica de negocio para obtener el reporte de ventas.
-        /// </summary>
-        /// /// <summary>
-        /// Lógica de negocio para obtener el reporte de ventas (ASÍNCRONO).
-        /// </summary>
         public async Task<List<ReporteVenta>> ObtenerReporteVentasAsync(DateTime fechaInicio, DateTime fechaFin)
         {
-            // --- Reglas de Negocio ---
             if (fechaInicio > fechaFin)
             {
                 return new List<ReporteVenta>();
@@ -29,7 +20,6 @@ namespace TechSolutions.BLL
 
             try
             {
-                // Task.Run() ejecuta el código en un hilo secundario del ThreadPool
                 return await Task.Run(() => _reporteDAL.ObtenerReporteVentas(fechaInicio, fechaFin));
             }
             catch (Exception ex)
@@ -38,23 +28,16 @@ namespace TechSolutions.BLL
             }
         }
 
-        /// <summary>
-        /// Lógica de negocio para obtener el historial detallado de un cliente.
-        /// </summary>
         public List<ReporteHistorialCliente> ObtenerHistorialCliente(int idCliente, DateTime fechaInicio, DateTime fechaFin)
         {
-            // --- Reglas de Negocio ---
-
-            // Regla 1: Validar que el ID del cliente sea válido
             if (idCliente <= 0)
             {
-                return new List<ReporteHistorialCliente>(); // ID no válido
+                return new List<ReporteHistorialCliente>(); 
             }
 
-            // Regla 2: Validar rango de fechas
             if (fechaInicio > fechaFin)
             {
-                return new List<ReporteHistorialCliente>(); // Rango inválido
+                return new List<ReporteHistorialCliente>(); 
             }
 
             try

@@ -1,5 +1,4 @@
-﻿// --- Archivo: RolBLL.cs ---
-// --- Proyecto: TechSolutions.BLL ---
+﻿
 
 using TechSolutions.DAL;
 using TechSolutions.Entidades;
@@ -12,14 +11,10 @@ namespace TechSolutions.BLL
     {
         private readonly RolDAL _rolDAL = new RolDAL();
 
-        /// <summary>
-        /// Lógica de negocio para obtener roles.
-        /// </summary>
         public List<Rol> ObtenerRoles()
         {
             try
             {
-                // Por ahora, solo llamamos a la DAL.
                 return _rolDAL.ObtenerRoles();
             }
             catch (Exception ex)

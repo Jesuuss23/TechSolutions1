@@ -1,5 +1,4 @@
-﻿// --- Archivo: RolDAL.cs ---
-// --- Proyecto: TechSolutions.DAL ---
+﻿
 
 using TechSolutions.Entidades;
 using Microsoft.Data.SqlClient;
@@ -11,13 +10,8 @@ namespace TechSolutions.DAL
 {
     public class RolDAL
     {
-        /// <summary>
-        /// Obtiene una lista de todos los roles.
-        /// </summary>
-        /// <returns>Una lista de objetos Rol.</returns>
         public List<Rol> ObtenerRoles()
         {
-            // Necesitamos crear la entidad 'Rol.cs'
             List<Rol> lista = new List<Rol>();
             using (SqlConnection con = ConexionDAL.Instancia.GetConexion())
             {

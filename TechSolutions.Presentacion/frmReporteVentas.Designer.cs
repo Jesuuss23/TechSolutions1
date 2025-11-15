@@ -39,70 +39,84 @@
             docImprimir = new System.Drawing.Printing.PrintDocument();
             vistaPreviaImpresion = new PrintPreviewDialog();
             btnEnviarCorreo = new Button();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvReporteVentas).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(85, 53);
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            label1.ForeColor = SystemColors.ButtonHighlight;
+            label1.Location = new Point(42, 160);
             label1.Name = "label1";
-            label1.Size = new Size(90, 20);
+            label1.Size = new Size(192, 41);
             label1.TabIndex = 0;
             label1.Text = "Fecha Inicio:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(102, 118);
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            label2.ForeColor = SystemColors.ButtonHighlight;
+            label2.Location = new Point(730, 160);
             label2.Name = "label2";
-            label2.Size = new Size(73, 20);
+            label2.Size = new Size(157, 41);
             label2.TabIndex = 1;
             label2.Text = "Fecha Fin:";
             // 
             // dtpFechaInicio
             // 
-            dtpFechaInicio.Location = new Point(246, 48);
+            dtpFechaInicio.Font = new Font("Segoe UI", 15F);
+            dtpFechaInicio.Location = new Point(240, 160);
             dtpFechaInicio.Name = "dtpFechaInicio";
-            dtpFechaInicio.Size = new Size(250, 27);
+            dtpFechaInicio.Size = new Size(445, 41);
             dtpFechaInicio.TabIndex = 2;
             // 
             // dtpFechaFin
             // 
-            dtpFechaFin.Location = new Point(246, 118);
+            dtpFechaFin.Font = new Font("Segoe UI", 15F);
+            dtpFechaFin.Location = new Point(893, 160);
             dtpFechaFin.Name = "dtpFechaFin";
-            dtpFechaFin.Size = new Size(250, 27);
+            dtpFechaFin.Size = new Size(457, 41);
             dtpFechaFin.TabIndex = 3;
             // 
             // btnGenerarReporte
             // 
-            btnGenerarReporte.Location = new Point(581, 66);
+            btnGenerarReporte.BackColor = SystemColors.MenuHighlight;
+            btnGenerarReporte.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            btnGenerarReporte.Location = new Point(1368, 160);
             btnGenerarReporte.Name = "btnGenerarReporte";
-            btnGenerarReporte.Size = new Size(141, 56);
+            btnGenerarReporte.Size = new Size(229, 57);
             btnGenerarReporte.TabIndex = 4;
             btnGenerarReporte.Text = "Generar Reporte";
-            btnGenerarReporte.UseVisualStyleBackColor = true;
+            btnGenerarReporte.UseVisualStyleBackColor = false;
             btnGenerarReporte.Click += btnGenerarReporte_Click;
             // 
             // dgvReporteVentas
             // 
             dgvReporteVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvReporteVentas.BackgroundColor = Color.Aquamarine;
             dgvReporteVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvReporteVentas.Location = new Point(125, 168);
+            dgvReporteVentas.Location = new Point(53, 238);
             dgvReporteVentas.Name = "dgvReporteVentas";
             dgvReporteVentas.ReadOnly = true;
             dgvReporteVentas.RowHeadersWidth = 51;
-            dgvReporteVentas.Size = new Size(597, 298);
+            dgvReporteVentas.Size = new Size(1297, 552);
             dgvReporteVentas.TabIndex = 5;
             // 
             // btnImprimir
             // 
-            btnImprimir.Location = new Point(843, 66);
+            btnImprimir.BackColor = Color.Yellow;
+            btnImprimir.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            btnImprimir.Location = new Point(1425, 318);
             btnImprimir.Name = "btnImprimir";
-            btnImprimir.Size = new Size(127, 56);
+            btnImprimir.Size = new Size(234, 72);
             btnImprimir.TabIndex = 6;
             btnImprimir.Text = "Imprimir";
-            btnImprimir.UseVisualStyleBackColor = true;
+            btnImprimir.UseVisualStyleBackColor = false;
             btnImprimir.Click += btnImprimir_Click;
             // 
             // docImprimir
@@ -122,19 +136,35 @@
             // 
             // btnEnviarCorreo
             // 
-            btnEnviarCorreo.Location = new Point(848, 202);
+            btnEnviarCorreo.BackColor = Color.Orange;
+            btnEnviarCorreo.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            btnEnviarCorreo.Location = new Point(1425, 541);
             btnEnviarCorreo.Name = "btnEnviarCorreo";
-            btnEnviarCorreo.Size = new Size(122, 59);
+            btnEnviarCorreo.Size = new Size(234, 74);
             btnEnviarCorreo.TabIndex = 7;
             btnEnviarCorreo.Text = "Enviar por Correo";
-            btnEnviarCorreo.UseVisualStyleBackColor = true;
+            btnEnviarCorreo.UseVisualStyleBackColor = false;
             btnEnviarCorreo.Click += btnEnviarCorreo_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Segoe UI", 45F, FontStyle.Bold);
+            label3.ForeColor = SystemColors.ButtonHighlight;
+            label3.Location = new Point(387, 39);
+            label3.Name = "label3";
+            label3.Size = new Size(682, 100);
+            label3.TabIndex = 8;
+            label3.Text = "Reporte de ventas";
             // 
             // frmReporteVentas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1124, 496);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(1683, 832);
+            Controls.Add(label3);
             Controls.Add(btnEnviarCorreo);
             Controls.Add(btnImprimir);
             Controls.Add(dgvReporteVentas);
@@ -145,6 +175,7 @@
             Controls.Add(label1);
             Name = "frmReporteVentas";
             Text = "frmReporteVentas";
+            Load += frmReporteVentas_Load;
             ((System.ComponentModel.ISupportInitialize)dgvReporteVentas).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -162,5 +193,6 @@
         private System.Drawing.Printing.PrintDocument docImprimir;
         private PrintPreviewDialog vistaPreviaImpresion;
         private Button btnEnviarCorreo;
+        private Label label3;
     }
 }

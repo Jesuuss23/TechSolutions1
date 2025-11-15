@@ -16,9 +16,9 @@ namespace TechSolutions.Entidades
         // El hash solo se usa para validar, no se almacena en la entidad.
 
         public int IdRol { get; set; }
-        public string NombreRol { get; set; } // Útil para mostrar en la UI
+        public string NombreRol { get; set; } 
         public bool Estado { get; set; }
         public DateTime FechaRegistro { get; set; }
-        public DateTime? UltimoAcceso { get; set; } // '?' permite valores nulos
+        public DateTime? UltimoAcceso { get; set; } 
     }
 }

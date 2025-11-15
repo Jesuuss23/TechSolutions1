@@ -1,6 +1,4 @@
-﻿// --- Archivo: Producto.cs ---
-// --- Proyecto: TechSolutions.Entidades ---
-
+﻿
 namespace TechSolutions.Entidades
 {
     public class Producto
@@ -12,8 +10,8 @@ namespace TechSolutions.Entidades
         public int Stock { get; set; }
         public bool Estado { get; set; }
 
-        // Propiedades de la relación con Categoría
+        
         public int IdCategoria { get; set; }
-        public string NombreCategoria { get; set; } // Útil para reportes y UI
+        public string NombreCategoria { get; set; } 
     }
 }

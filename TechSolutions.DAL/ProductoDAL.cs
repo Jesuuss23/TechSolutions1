@@ -1,19 +1,14 @@
-﻿// --- Archivo: ProductoDAL.cs ---
-// --- Proyecto: TechSolutions.DAL ---
+﻿
 
 using Microsoft.Data.SqlClient;
 using System.Data;
-using TechSolutions.Entidades; // Para 'Producto'
-using System.Collections.Generic; // Para 'List<>'
+using TechSolutions.Entidades; 
+using System.Collections.Generic;
 
 namespace TechSolutions.DAL
 {
     public class ProductoDAL
     {
-        /// <summary>
-        /// Obtiene una lista de todos los productos activos.
-        /// </summary>
-        /// <returns>Una lista de objetos Producto.</returns>
         public List<Producto> ObtenerProductos()
         {
             List<Producto> listaProductos = new List<Producto>();
@@ -54,11 +49,6 @@ namespace TechSolutions.DAL
             return listaProductos;
         }
 
-        /// <summary>
-        /// Registra un nuevo producto en la base de datos.
-        /// </summary>
-        /// <param name="producto">El objeto Producto a insertar.</param>
-        /// <returns>True si fue exitoso, False si el nombre ya existía.</returns>
         public bool RegistrarProducto(Producto producto)
         {
             bool exito = false;
@@ -88,11 +78,6 @@ namespace TechSolutions.DAL
             return exito;
         }
 
-        /// <summary>
-        /// Actualiza un producto existente en la base de datos.
-        /// </summary>
-        /// <param name="producto">El objeto Producto con los datos a actualizar.</param>
-        /// <returns>True si fue exitoso, False si el nombre está duplicado.</returns>
         public bool ActualizarProducto(Producto producto)
         {
             bool exito = false;
@@ -123,10 +108,6 @@ namespace TechSolutions.DAL
             return exito;
         }
 
-        /// <summary>
-        /// Realiza una eliminación lógica (Estado = 0) de un producto.
-        /// </summary>
-        /// <param name="idProducto">El ID del producto a eliminar.</param>
         public void EliminarProducto(int idProducto)
         {
             using (SqlConnection conexion = ConexionDAL.Instancia.GetConexion())

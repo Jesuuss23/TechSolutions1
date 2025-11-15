@@ -1,22 +1,15 @@
-﻿// --- Archivo: ReporteDAL.cs ---
-// --- Proyecto: TechSolutions.DAL ---
+﻿
 
 using Microsoft.Data.SqlClient;
 using System.Data;
-using TechSolutions.Entidades; // Para 'ReporteVenta'
+using TechSolutions.Entidades; 
 using System;
-using System.Collections.Generic; // Para 'List<>'
+using System.Collections.Generic; 
 
 namespace TechSolutions.DAL
 {
     public class ReporteDAL
     {
-        /// <summary>
-        /// Obtiene el reporte de ventas entre dos fechas.
-        /// </summary>
-        /// <param name="fechaInicio">Fecha de inicio del reporte.</param>
-        /// <param name="fechaFin">Fecha de fin del reporte.</param>
-        /// <returns>Una lista de objetos ReporteVenta.</returns>
         public List<ReporteVenta> ObtenerReporteVentas(DateTime fechaInicio, DateTime fechaFin)
         {
             List<ReporteVenta> listaReporte = new List<ReporteVenta>();
@@ -38,7 +31,6 @@ namespace TechSolutions.DAL
                         {
                             while (reader.Read())
                             {
-                                // 3. Mapeamos los datos del reader al objeto ReporteVenta
                                 ReporteVenta fila = new ReporteVenta
                                 {
                                     IdVenta = reader.GetInt32("IdVenta"),
@@ -57,18 +49,11 @@ namespace TechSolutions.DAL
                         throw new Exception("Error en la base de datos al generar el reporte: " + ex.Message);
                     }
                 }
-            } // La conexión se cierra aquí
+            } 
 
             return listaReporte;
         }
 
-        /// <summary>
-        /// Obtiene el historial detallado de compras para un cliente.
-        /// </summary>
-        /// <param name="idCliente">El ID del cliente.</param>
-        /// <param name="fechaInicio">Fecha de inicio del reporte.</param>
-        /// <param name="fechaFin">Fecha de fin del reporte.</param>
-        /// <returns>Una lista de objetos ReporteHistorialCliente.</returns>
         public List<ReporteHistorialCliente> ObtenerHistorialCliente(int idCliente, DateTime fechaInicio, DateTime fechaFin)
         {
             List<ReporteHistorialCliente> listaHistorial = new List<ReporteHistorialCliente>();

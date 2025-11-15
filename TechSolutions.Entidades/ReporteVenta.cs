@@ -1,13 +1,10 @@
-﻿// --- Archivo: ReporteVenta.cs ---
-// --- Proyecto: TechSolutions.Entidades ---
+﻿
 
 using System;
 
 namespace TechSolutions.Entidades
 {
-    /// <summary>
-    /// Representa una fila del resultado del sp_ReporteVentasPorFecha.
-    /// </summary>
+
     public class ReporteVenta
     {
         public int IdVenta { get; set; }

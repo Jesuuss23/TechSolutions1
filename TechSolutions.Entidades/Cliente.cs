@@ -14,10 +14,6 @@ namespace TechSolutions.Entidades
         public string Direccion { get; set; }
         public bool Estado { get; set; }
 
-        // --- AÑADE ESTA PROPIEDAD ---
-        /// <summary>
-        /// Propiedad calculada para mostrar en ComboBoxes.
-        /// </summary>
         public string NombreCompleto
         {
             get { return $"{Apellido}, {Nombre}"; } // E.g., "Pérez, Juan"

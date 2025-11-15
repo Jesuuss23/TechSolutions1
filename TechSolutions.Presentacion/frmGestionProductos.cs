@@ -24,22 +24,20 @@ namespace TechSolutions.Presentacion
 
         private void frmGestionProductos_Load(object sender, EventArgs e)
         {
-            CargarCategorias(); // ¡Primero cargamos el ComboBox!
+            this.WindowState = FormWindowState.Maximized;
+            StyleHelper.AplicarEstiloDataGridView(dgvProductos);
+            CargarCategorias(); 
             CargarProductos();
         }
-        /// <summary>
-        /// Carga el ComboBox (cmbCategoria) con las categorías de la BD.
-        /// </summary>
         private void CargarCategorias()
         {
             try
             {
                 List<Categoria> listaCategorias = _categoriaBLL.ObtenerCategorias();
 
-                // Configuramos el ComboBox
                 cmbCategoria.DataSource = listaCategorias;
-                cmbCategoria.DisplayMember = "NombreCategoria"; // Lo que ve el usuario
-                cmbCategoria.ValueMember = "IdCategoria";     // El valor oculto (ID)
+                cmbCategoria.DisplayMember = "NombreCategoria"; 
+                cmbCategoria.ValueMember = "IdCategoria";     
             }
             catch (Exception ex)
             {
@@ -47,9 +45,6 @@ namespace TechSolutions.Presentacion
             }
         }
 
-        /// <summary>
-        /// Carga la cuadrícula (dgvProductos) con los productos de la BD.
-        /// </summary>
         private void CargarProductos()
         {
             try
@@ -59,7 +54,6 @@ namespace TechSolutions.Presentacion
                 dgvProductos.DataSource = null;
                 dgvProductos.DataSource = listaProductos;
 
-                // (Opcional) Ocultar columnas
                 dgvProductos.Columns["IdProducto"].Visible = false;
                 dgvProductos.Columns["IdCategoria"].Visible = false;
                 dgvProductos.Columns["Estado"].Visible = false;
@@ -74,23 +68,18 @@ namespace TechSolutions.Presentacion
         {
             try
             {
-                // 1. Recolectar los datos del formulario
                 Producto nuevoProducto = new Producto
                 {
                     Nombre = txtNombre.Text,
                     Descripcion = txtDescripcion.Text,
-                    Precio = numPrecio.Value, // Obtenemos el valor del NumericUpDown
-                    Stock = (int)numStock.Value, // Convertimos el valor a 'int'
+                    Precio = numPrecio.Value, 
+                    Stock = (int)numStock.Value, 
 
-                    // Obtenemos el ID de la categoría seleccionada en el ComboBox
                     IdCategoria = (int)cmbCategoria.SelectedValue
                 };
 
-                // 2. Llamar a la BLL para que intente registrarlo
-                //    (La BLL validará que los campos no estén vacíos)
                 bool exito = _productoBLL.RegistrarProducto(nuevoProducto);
 
-                // 3. Evaluar la respuesta de la BLL
                 if (exito)
                 {
                     MessageBox.Show(
@@ -99,16 +88,12 @@ namespace TechSolutions.Presentacion
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
 
-                    // 4. Refrescar la cuadrícula
                     CargarProductos();
 
-                    // 5. Limpiar los campos
                     LimpiarCampos();
                 }
                 else
                 {
-                    // Esto sucede si la BLL o la DAL devuelven 'false'
-                    // (ej. el nombre ya existe o faltan campos)
                     MessageBox.Show(
                         "No se pudo registrar el producto. Verifique que el nombre no esté duplicado o que todos los campos estén completos.",
                         "Error de Registro",
@@ -118,7 +103,6 @@ namespace TechSolutions.Presentacion
             }
             catch (Exception ex)
             {
-                // Esto captura errores más graves (ej. se cayó la BD)
                 MessageBox.Show(
                     "Error inesperado al registrar: " + ex.Message,
                     "Error Crítico",
@@ -127,17 +111,14 @@ namespace TechSolutions.Presentacion
             }
 
         }
-        /// <summary>
-        /// Método auxiliar para limpiar los controles del formulario.
-        /// </summary>
         private void LimpiarCampos()
         {
             txtNombre.Text = "";
             txtDescripcion.Text = "";
             numPrecio.Value = 0;
             numStock.Value = 0;
-            cmbCategoria.SelectedIndex = 0; // Selecciona el primer ítem
-            _idProductoSeleccionado = 0; // Reseteamos el ID
+            cmbCategoria.SelectedIndex = 0; 
+            _idProductoSeleccionado = 0;
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -147,26 +128,19 @@ namespace TechSolutions.Presentacion
 
         private void dgvProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Verificamos que se haya hecho clic en una fila válida
             if (e.RowIndex >= 0)
             {
                 try
                 {
-                    // 1. Obtenemos la fila seleccionada
                     DataGridViewRow fila = dgvProductos.Rows[e.RowIndex];
 
-                    // 2. Pasamos los valores de las celdas a los controles
                     txtNombre.Text = fila.Cells["Nombre"].Value.ToString();
                     txtDescripcion.Text = fila.Cells["Descripcion"].Value.ToString();
                     numPrecio.Value = Convert.ToDecimal(fila.Cells["Precio"].Value);
                     numStock.Value = Convert.ToInt32(fila.Cells["Stock"].Value);
 
-                    // 3. --- SELECCIONAR LA CATEGORÍA EN EL COMBOBOX ---
-                    //    Esto busca el IdCategoria de la fila (ej. 1)
-                    //    y lo selecciona en el ComboBox.
                     cmbCategoria.SelectedValue = Convert.ToInt32(fila.Cells["IdCategoria"].Value);
 
-                    // 4. Guardamos el ID del producto para el botón "Actualizar"
                     _idProductoSeleccionado = Convert.ToInt32(fila.Cells["IdProducto"].Value);
                 }
                 catch (Exception ex)
@@ -178,7 +152,6 @@ namespace TechSolutions.Presentacion
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            // 1. Verificamos que haya un producto seleccionado
             if (_idProductoSeleccionado <= 0)
             {
                 MessageBox.Show(
@@ -186,15 +159,13 @@ namespace TechSolutions.Presentacion
                     "Selección Requerida",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
-                return; // Salimos del método
+                return; 
             }
 
             try
             {
-                // 2. Recolectar los datos del formulario
                 Producto productoActualizado = new Producto
                 {
-                    // ¡IMPORTANTE! Asignamos el ID que guardamos al seleccionar
                     IdProducto = _idProductoSeleccionado,
 
                     Nombre = txtNombre.Text,
@@ -204,10 +175,8 @@ namespace TechSolutions.Presentacion
                     IdCategoria = (int)cmbCategoria.SelectedValue
                 };
 
-                // 3. Llamar a la BLL para que intente actualizarlo
                 bool exito = _productoBLL.ActualizarProducto(productoActualizado);
 
-                // 4. Evaluar la respuesta de la BLL
                 if (exito)
                 {
                     MessageBox.Show(
@@ -216,16 +185,12 @@ namespace TechSolutions.Presentacion
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
 
-                    // 5. Refrescar la cuadrícula para ver los cambios
                     CargarProductos();
 
-                    // 6. Limpiar los campos y el ID
                     LimpiarCampos();
                 }
                 else
                 {
-                    // Esto sucede si la BLL o la DAL devuelven 'false'
-                    // (ej. el nombre está duplicado por OTRO producto)
                     MessageBox.Show(
                         "No se pudo actualizar el producto. Verifique que el nombre no esté duplicado.",
                         "Error de Actualización",
@@ -235,7 +200,6 @@ namespace TechSolutions.Presentacion
             }
             catch (Exception ex)
             {
-                // Esto captura errores más graves (ej. se cayó la BD)
                 MessageBox.Show(
                     "Error inesperado al actualizar: " + ex.Message,
                     "Error Crítico",
@@ -246,7 +210,6 @@ namespace TechSolutions.Presentacion
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            // 1. Verificamos que haya un producto seleccionado
             if (_idProductoSeleccionado <= 0)
             {
                 MessageBox.Show(
@@ -254,22 +217,19 @@ namespace TechSolutions.Presentacion
                     "Selección Requerida",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
-                return; // Salimos del método
+                return; 
             }
 
-            // 2. ¡Confirmación!
             DialogResult confirmacion = MessageBox.Show(
                 "¿Está seguro de que desea eliminar este producto?\nEsta acción no se puede deshacer.",
                 "Confirmar Eliminación",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
-            // 3. Verificamos la respuesta
             if (confirmacion == DialogResult.Yes)
             {
                 try
                 {
-                    // 4. Llamar a la BLL para que intente eliminarlo
                     bool exito = _productoBLL.EliminarProducto(_idProductoSeleccionado);
 
                     if (exito)
@@ -280,16 +240,14 @@ namespace TechSolutions.Presentacion
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
 
-                        // 5. Refrescar la cuadrícula (el producto desaparecerá)
+
                         CargarProductos();
 
-                        // 6. Limpiar los campos y el ID
                         LimpiarCampos();
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Esto captura errores más graves (ej. se cayó la BD)
                     MessageBox.Show(
                         "Error inesperado al eliminar: " + ex.Message,
                         "Error Crítico",
@@ -297,7 +255,6 @@ namespace TechSolutions.Presentacion
                         MessageBoxIcon.Error);
                 }
             }
-            // Si el usuario presiona "No", no hacemos nada.
         }
     }
 }

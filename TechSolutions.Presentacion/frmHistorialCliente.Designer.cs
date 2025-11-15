@@ -46,74 +46,89 @@
             // lblNombreCliente
             // 
             lblNombreCliente.AutoSize = true;
-            lblNombreCliente.Font = new Font("Segoe UI", 14F);
-            lblNombreCliente.Location = new Point(41, 32);
+            lblNombreCliente.BackColor = Color.Transparent;
+            lblNombreCliente.Font = new Font("Segoe UI", 45F, FontStyle.Bold);
+            lblNombreCliente.ForeColor = SystemColors.ButtonHighlight;
+            lblNombreCliente.Location = new Point(102, 37);
             lblNombreCliente.Name = "lblNombreCliente";
-            lblNombreCliente.Size = new Size(236, 32);
+            lblNombreCliente.Size = new Size(790, 100);
             lblNombreCliente.TabIndex = 0;
             lblNombreCliente.Text = "Historial de: [Cliente]";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(55, 123);
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            label1.ForeColor = SystemColors.ButtonHighlight;
+            label1.Location = new Point(102, 196);
             label1.Name = "label1";
-            label1.Size = new Size(90, 20);
+            label1.Size = new Size(192, 41);
             label1.TabIndex = 1;
             label1.Text = "Fecha Inicio:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(55, 214);
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            label2.ForeColor = SystemColors.ButtonHighlight;
+            label2.Location = new Point(809, 196);
             label2.Name = "label2";
-            label2.Size = new Size(73, 20);
+            label2.Size = new Size(157, 41);
             label2.TabIndex = 2;
             label2.Text = "Fecha Fin:";
             // 
             // dtpFechaInicio
             // 
-            dtpFechaInicio.Location = new Point(244, 126);
+            dtpFechaInicio.Font = new Font("Segoe UI", 15F);
+            dtpFechaInicio.Location = new Point(300, 196);
             dtpFechaInicio.Name = "dtpFechaInicio";
-            dtpFechaInicio.Size = new Size(250, 27);
+            dtpFechaInicio.Size = new Size(475, 41);
             dtpFechaInicio.TabIndex = 3;
             // 
             // dtpFechaFin
             // 
-            dtpFechaFin.Location = new Point(244, 207);
+            dtpFechaFin.Font = new Font("Segoe UI", 15F);
+            dtpFechaFin.Location = new Point(972, 196);
             dtpFechaFin.Name = "dtpFechaFin";
-            dtpFechaFin.Size = new Size(250, 27);
+            dtpFechaFin.Size = new Size(455, 41);
             dtpFechaFin.TabIndex = 4;
             // 
             // btnBuscarHistorial
             // 
-            btnBuscarHistorial.Location = new Point(157, 305);
+            btnBuscarHistorial.BackColor = Color.Orange;
+            btnBuscarHistorial.Font = new Font("Segoe UI", 15F);
+            btnBuscarHistorial.Location = new Point(1461, 188);
             btnBuscarHistorial.Name = "btnBuscarHistorial";
-            btnBuscarHistorial.Size = new Size(120, 53);
+            btnBuscarHistorial.Size = new Size(219, 60);
             btnBuscarHistorial.TabIndex = 5;
             btnBuscarHistorial.Text = "Buscar Historial";
-            btnBuscarHistorial.UseVisualStyleBackColor = true;
+            btnBuscarHistorial.UseVisualStyleBackColor = false;
             btnBuscarHistorial.Click += btnBuscarHistorial_Click_1;
             // 
             // dgvHistorial
             // 
             dgvHistorial.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvHistorial.BackgroundColor = Color.Aquamarine;
             dgvHistorial.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvHistorial.Location = new Point(524, 58);
+            dgvHistorial.Location = new Point(102, 274);
             dgvHistorial.Name = "dgvHistorial";
             dgvHistorial.ReadOnly = true;
             dgvHistorial.RowHeadersWidth = 51;
-            dgvHistorial.Size = new Size(616, 325);
+            dgvHistorial.Size = new Size(1325, 554);
             dgvHistorial.TabIndex = 6;
             // 
             // btnImprimirHistorial
             // 
-            btnImprimirHistorial.Location = new Point(866, 408);
+            btnImprimirHistorial.BackColor = SystemColors.MenuHighlight;
+            btnImprimirHistorial.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            btnImprimirHistorial.Location = new Point(1461, 371);
             btnImprimirHistorial.Name = "btnImprimirHistorial";
-            btnImprimirHistorial.Size = new Size(152, 57);
+            btnImprimirHistorial.Size = new Size(266, 62);
             btnImprimirHistorial.TabIndex = 7;
             btnImprimirHistorial.Text = "Imprimir";
-            btnImprimirHistorial.UseVisualStyleBackColor = true;
+            btnImprimirHistorial.UseVisualStyleBackColor = false;
             btnImprimirHistorial.Click += btnImprimirHistorial_Click;
             // 
             // docImprimirHistorial
@@ -133,19 +148,22 @@
             // 
             // btnEnviarCorreo
             // 
-            btnEnviarCorreo.Location = new Point(581, 411);
+            btnEnviarCorreo.BackColor = Color.Coral;
+            btnEnviarCorreo.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            btnEnviarCorreo.Location = new Point(1446, 609);
             btnEnviarCorreo.Name = "btnEnviarCorreo";
-            btnEnviarCorreo.Size = new Size(151, 54);
+            btnEnviarCorreo.Size = new Size(298, 71);
             btnEnviarCorreo.TabIndex = 8;
             btnEnviarCorreo.Text = "Enviar por Correo";
-            btnEnviarCorreo.UseVisualStyleBackColor = true;
+            btnEnviarCorreo.UseVisualStyleBackColor = false;
             btnEnviarCorreo.Click += btnEnviarCorreo_Click;
             // 
             // frmHistorialCliente
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1152, 552);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(1771, 873);
             Controls.Add(btnEnviarCorreo);
             Controls.Add(btnImprimirHistorial);
             Controls.Add(dgvHistorial);
@@ -157,6 +175,7 @@
             Controls.Add(lblNombreCliente);
             Name = "frmHistorialCliente";
             Text = "frmHistorialCliente";
+            Load += frmHistorialCliente_Load;
             ((System.ComponentModel.ISupportInitialize)dgvHistorial).EndInit();
             ResumeLayout(false);
             PerformLayout();

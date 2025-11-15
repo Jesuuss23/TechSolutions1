@@ -16,28 +16,22 @@ namespace TechSolutions.Presentacion
 {
     public partial class frmHistorialCliente : Form
     {
-        // --- AÑADE LA BLL Y LAS VARIABLES ---
         private readonly ReporteBLL _reporteBLL = new ReporteBLL();
         private readonly int _idCliente;
         private readonly string _nombreCliente;
         private readonly EmailHelper _emailHelper = new EmailHelper();
-        // ------------------------------------
 
-        // --- MODIFICA EL CONSTRUCTOR ---
         public frmHistorialCliente(int idCliente, string nombreCliente)
         {
             InitializeComponent();
             _idCliente = idCliente;
             _nombreCliente = nombreCliente;
 
-            // Ponemos el nombre en el título o en el Label
             this.Text = $"Historial de: {_nombreCliente}";
-            // Si creaste el Label 'lblNombreCliente':
             lblNombreCliente.Text = $"Historial de: {_nombreCliente}";
         }
 
-        // --- CREA EL EVENTO CLICK DEL BOTÓN BUSCAR ---
-        // (Asegúrate de conectar este método al evento Click de 'btnBuscarHistorial')
+
         private void btnBuscarHistorial_Click(object sender, EventArgs e)
         {
         }
@@ -46,18 +40,17 @@ namespace TechSolutions.Presentacion
         {
             try
             {
-                // 1. Obtener las fechas de los controles
+
                 DateTime fechaInicio = dtpFechaInicio.Value;
                 DateTime fechaFin = dtpFechaFin.Value;
 
-                // 2. Llamar a la BLL (¡Usando el ID del cliente guardado!)
+
                 List<ReporteHistorialCliente> listaHistorial = _reporteBLL.ObtenerHistorialCliente(_idCliente, fechaInicio, fechaFin);
 
-                // 3. Asignar la lista al DataGridView
                 dgvHistorial.DataSource = null;
                 dgvHistorial.DataSource = listaHistorial;
 
-                // 4. Configurar columnas
+
                 if (listaHistorial.Count > 0)
                 {
                     dgvHistorial.Columns["FechaVenta"].HeaderText = "Fecha";
@@ -66,7 +59,6 @@ namespace TechSolutions.Presentacion
                     dgvHistorial.Columns["PrecioUnitario"].DefaultCellStyle.Format = "c";
                 }
 
-                // 5. Mostrar mensaje si no hay resultados
                 if (listaHistorial.Count == 0)
                 {
                     MessageBox.Show(
@@ -89,7 +81,6 @@ namespace TechSolutions.Presentacion
 
         private void btnImprimirHistorial_Click(object sender, EventArgs e)
         {
-            // 1. Verificamos que haya datos en la cuadrícula
             if (dgvHistorial.Rows.Count == 0)
             {
                 MessageBox.Show(
@@ -97,11 +88,9 @@ namespace TechSolutions.Presentacion
                     "No hay datos",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
-                return; // Salimos del método
+                return; 
             }
 
-            // 2. Le decimos a la Vista Previa que se muestre.
-            //    Esto disparará automáticamente el evento 'docImprimirHistorial_PrintPage'
             vistaPreviaHistorial.ShowDialog();
         }
 
@@ -109,7 +98,6 @@ namespace TechSolutions.Presentacion
         {
             try
             {
-                // --- 1. CONFIGURACIÓN INICIAL ---
                 Font titleFont = new Font("Arial", 16, FontStyle.Bold);
                 Font clientFont = new Font("Arial", 12, FontStyle.Italic);
                 Font headerFont = new Font("Arial", 10, FontStyle.Bold);
@@ -120,7 +108,6 @@ namespace TechSolutions.Presentacion
                 float yPos = topMargin;
                 float lineHeight = bodyFont.GetHeight(e.Graphics) + 5;
 
-                // --- 2. DIBUJAR EL TÍTULO Y NOMBRE DEL CLIENTE ---
                 e.Graphics.DrawString(
                     "Historial de Compras - TechSolutions",
                     titleFont,
@@ -129,21 +116,19 @@ namespace TechSolutions.Presentacion
                     yPos);
                 yPos += titleFont.GetHeight(e.Graphics);
 
-                // Usamos la variable _nombreCliente que guardamos en el constructor
                 e.Graphics.DrawString(
                     $"Cliente: {_nombreCliente}",
                     clientFont,
                     Brushes.Gray,
                     leftMargin,
                     yPos);
-                yPos += clientFont.GetHeight(e.Graphics) * 2; // Dejar doble espacio
+                yPos += clientFont.GetHeight(e.Graphics) * 2; 
 
-                // --- 3. DIBUJAR LAS CABECERAS (Definir posiciones X) ---
                 float xFecha = leftMargin;
                 float xProducto = leftMargin + 150;
                 float xCantidad = leftMargin + 400;
                 float xPrecio = leftMargin + 480;
-                float xSubtotal = leftMargin + 580; // Alineado a la derecha
+                float xSubtotal = leftMargin + 580; 
 
                 e.Graphics.DrawString("Fecha", headerFont, Brushes.Black, xFecha, yPos);
                 e.Graphics.DrawString("Producto", headerFont, Brushes.Black, xProducto, yPos);
@@ -152,27 +137,23 @@ namespace TechSolutions.Presentacion
                 e.Graphics.DrawString("Subtotal", headerFont, Brushes.Black, xSubtotal, yPos);
                 yPos += lineHeight * 2;
 
-                // --- 4. DIBUJAR EL CONTENIDO (Loop) ---
                 foreach (DataGridViewRow row in dgvHistorial.Rows)
                 {
-                    // Formatear los datos
                     string fecha = Convert.ToDateTime(row.Cells["FechaVenta"].Value).ToString("g");
                     string producto = row.Cells["Producto"].Value.ToString();
                     string cantidad = row.Cells["Cantidad"].Value.ToString();
                     string precio = Convert.ToDecimal(row.Cells["PrecioUnitario"].Value).ToString("C");
                     string subtotal = Convert.ToDecimal(row.Cells["Subtotal"].Value).ToString("C");
 
-                    // Dibujar la línea
                     e.Graphics.DrawString(fecha, bodyFont, Brushes.Black, xFecha, yPos);
                     e.Graphics.DrawString(producto, bodyFont, Brushes.Black, xProducto, yPos);
                     e.Graphics.DrawString(cantidad, bodyFont, Brushes.Black, xCantidad, yPos);
                     e.Graphics.DrawString(precio, bodyFont, Brushes.Black, xPrecio, yPos);
                     e.Graphics.DrawString(subtotal, bodyFont, Brushes.Black, xSubtotal, yPos);
 
-                    yPos += lineHeight; // Mover a la siguiente línea
+                    yPos += lineHeight; 
                 }
 
-                // --- 5. FINALIZAR ---
                 e.HasMorePages = false;
             }
             catch (Exception ex)
@@ -184,7 +165,6 @@ namespace TechSolutions.Presentacion
 
         private async void btnEnviarCorreo_Click(object sender, EventArgs e)
         {
-            // 1. Verificamos que haya datos en la cuadrícula
             if (dgvHistorial.Rows.Count == 0)
             {
                 MessageBox.Show(
@@ -195,13 +175,11 @@ namespace TechSolutions.Presentacion
                 return;
             }
 
-            // 2. Pedimos el correo del destinatario
             string emailDestino = Interaction.InputBox(
                 "Ingrese el correo electrónico del destinatario:",
                 "Enviar Historial por Correo",
                 "");
 
-            // 3. Validamos el correo ingresado
             if (string.IsNullOrEmpty(emailDestino) || !emailDestino.Contains("@"))
             {
                 MessageBox.Show(
@@ -212,12 +190,8 @@ namespace TechSolutions.Presentacion
                 return;
             }
 
-            // 4. Preparamos los datos (la lista del historial)
-            //    Obtenemos la lista que ya está en el DataGridView
             List<ReporteHistorialCliente> historial = (List<ReporteHistorialCliente>)dgvHistorial.DataSource;
 
-            // 5. --- INICIO DE LA OPERACIÓN ASÍNCRONA ---
-            //    (Deshabilitamos botones y mostramos cursor de espera)
             btnEnviarCorreo.Enabled = false;
             btnBuscarHistorial.Enabled = false;
             btnImprimirHistorial.Enabled = false;
@@ -225,10 +199,8 @@ namespace TechSolutions.Presentacion
 
             try
             {
-                // 6. Llamamos a nuestro Helper para que haga el trabajo
                 await _emailHelper.EnviarHistorialClienteAsync(emailDestino, _nombreCliente, historial);
 
-                // 7. ¡Éxito!
                 MessageBox.Show(
                     $"¡Historial enviado exitosamente a {emailDestino}!",
                     "Envío Exitoso",
@@ -237,7 +209,6 @@ namespace TechSolutions.Presentacion
             }
             catch (Exception ex)
             {
-                // 8. Capturamos cualquier error (ej. contraseña de Gmail incorrecta)
                 MessageBox.Show(
                     "Error inesperado al enviar el correo: " + ex.Message,
                     "Error Crítico",
@@ -246,14 +217,18 @@ namespace TechSolutions.Presentacion
             }
             finally
             {
-                // 9. --- FINALIZAR OPERACIÓN ---
-                //    (Rehabilitamos todo, incluso si falló)
                 btnEnviarCorreo.Enabled = true;
                 btnBuscarHistorial.Enabled = true;
                 btnImprimirHistorial.Enabled = true;
                 this.Cursor = Cursors.Default;
             }
 
+        }
+
+        private void frmHistorialCliente_Load(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+            StyleHelper.AplicarEstiloDataGridView(dgvHistorial);
         }
     }
 }

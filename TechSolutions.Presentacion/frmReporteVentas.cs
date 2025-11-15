@@ -16,9 +16,8 @@ namespace TechSolutions.Presentacion
 {
     public partial class frmReporteVentas : Form
     {
-        // --- AÑADE LA INSTANCIA DE LA BLL ---
         private readonly ReporteBLL _reporteBLL = new ReporteBLL();
-        // ------------------------------------
+
         private readonly EmailHelper _emailHelper = new EmailHelper();
         public frmReporteVentas()
         {
@@ -29,40 +28,26 @@ namespace TechSolutions.Presentacion
         {
             try
             {
-                // 1. Obtener las fechas
                 DateTime fechaInicio = dtpFechaInicio.Value;
                 DateTime fechaFin = dtpFechaFin.Value;
 
-                // --- INICIO DEL CAMBIO POR HILOS ---
-
-                // A. Deshabilitamos el botón y mostramos un cursor de espera
-                //    para que el usuario sepa que algo está pasando.
                 btnGenerarReporte.Enabled = false;
                 this.Cursor = Cursors.WaitCursor;
-                dgvReporteVentas.DataSource = null; // Limpiamos la grilla
+                dgvReporteVentas.DataSource = null; 
 
-                // B. Llamamos al método ASÍNCRONO con 'await'.
-                //    El hilo de la UI NO se bloqueará aquí.
                 List<ReporteVenta> listaReporte = await _reporteBLL.ObtenerReporteVentasAsync(fechaInicio, fechaFin);
 
-                // C. Cuando 'await' termina, el código sigue en el hilo de la UI.
-                //    Restauramos el cursor y el botón.
                 this.Cursor = Cursors.Default;
                 btnGenerarReporte.Enabled = true;
 
-                // --- FIN DEL CAMBIO POR HILOS ---
 
-                // 3. Asignar la lista como la fuente de datos
                 dgvReporteVentas.DataSource = listaReporte;
 
-                // 4. Configuración visual (el código que ya tenías)
                 if (listaReporte.Count > 0)
                 {
                     dgvReporteVentas.Columns["IdVenta"].Visible = false;
-                    // ... (el resto de tu configuración de columnas) ...
                 }
 
-                // 5. Mostrar mensaje si no hay resultados
                 if (listaReporte.Count == 0)
                 {
                     MessageBox.Show(
@@ -74,7 +59,6 @@ namespace TechSolutions.Presentacion
             }
             catch (Exception ex)
             {
-                // Restauramos el cursor y botón también si hay un error
                 this.Cursor = Cursors.Default;
                 btnGenerarReporte.Enabled = true;
 
@@ -88,7 +72,6 @@ namespace TechSolutions.Presentacion
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            // 1. Verificamos que haya datos en la cuadrícula
             if (dgvReporteVentas.Rows.Count == 0)
             {
                 MessageBox.Show(
@@ -96,11 +79,9 @@ namespace TechSolutions.Presentacion
                     "No hay datos",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
-                return; // Salimos del método
+                return; 
             }
 
-            // 2. Le decimos a la Vista Previa que se muestre.
-            //    Esto disparará automáticamente el evento 'docImprimir_PrintPage'
             vistaPreviaImpresion.ShowDialog();
         }
 
@@ -108,60 +89,50 @@ namespace TechSolutions.Presentacion
         {
             try
             {
-                // --- 1. CONFIGURACIÓN INICIAL ---
-                // Definir fuentes
                 Font titleFont = new Font("Arial", 16, FontStyle.Bold);
                 Font headerFont = new Font("Arial", 10, FontStyle.Bold);
                 Font bodyFont = new Font("Arial", 10);
 
-                // Definir márgenes y posición
                 float leftMargin = e.MarginBounds.Left;
                 float topMargin = e.MarginBounds.Top;
-                float yPos = topMargin; // Posición Y (vertical)
-                float lineHeight = bodyFont.GetHeight(e.Graphics) + 5; // Alto de línea + espacio
+                float yPos = topMargin; 
+                float lineHeight = bodyFont.GetHeight(e.Graphics) + 5; 
 
-                // --- 2. DIBUJAR EL TÍTULO ---
                 e.Graphics.DrawString(
                     "Reporte de Ventas - TechSolutions",
                     titleFont,
                     Brushes.Black,
                     leftMargin,
                     yPos);
-                yPos += titleFont.GetHeight(e.Graphics) * 2; // Dejar doble espacio
+                yPos += titleFont.GetHeight(e.Graphics) * 2; 
 
-                // --- 3. DIBUJAR LAS CABECERAS (Definir posiciones X) ---
                 float xFecha = leftMargin;
                 float xCliente = leftMargin + 150;
                 float xVendedor = leftMargin + 350;
-                float xTotal = leftMargin + 500; // Alineado a la derecha
+                float xTotal = leftMargin + 500; 
 
                 e.Graphics.DrawString("Fecha de Venta", headerFont, Brushes.Black, xFecha, yPos);
                 e.Graphics.DrawString("Cliente", headerFont, Brushes.Black, xCliente, yPos);
                 e.Graphics.DrawString("Vendedor", headerFont, Brushes.Black, xVendedor, yPos);
                 e.Graphics.DrawString("Total", headerFont, Brushes.Black, xTotal, yPos);
-                yPos += lineHeight * 2; // Doble espacio después de cabeceras
+                yPos += lineHeight * 2; 
 
-                // --- 4. DIBUJAR EL CONTENIDO (Loop) ---
-                // (Simplificado, no maneja múltiples páginas. Para este proyecto es suficiente)
+
                 foreach (DataGridViewRow row in dgvReporteVentas.Rows)
                 {
-                    // Formatear los datos
                     string fecha = Convert.ToDateTime(row.Cells["FechaVenta"].Value).ToString("g");
                     string cliente = row.Cells["Cliente"].Value.ToString();
                     string vendedor = row.Cells["Vendedor"].Value.ToString();
-                    string total = Convert.ToDecimal(row.Cells["Total"].Value).ToString("C"); // "C" de Currency
+                    string total = Convert.ToDecimal(row.Cells["Total"].Value).ToString("C"); 
 
-                    // Dibujar la línea
                     e.Graphics.DrawString(fecha, bodyFont, Brushes.Black, xFecha, yPos);
                     e.Graphics.DrawString(cliente, bodyFont, Brushes.Black, xCliente, yPos);
                     e.Graphics.DrawString(vendedor, bodyFont, Brushes.Black, xVendedor, yPos);
                     e.Graphics.DrawString(total, bodyFont, Brushes.Black, xTotal, yPos);
 
-                    yPos += lineHeight; // Mover a la siguiente línea
+                    yPos += lineHeight; 
                 }
 
-                // --- 5. FINALIZAR ---
-                // Le decimos que ya no hay más páginas
                 e.HasMorePages = false;
             }
             catch (Exception ex)
@@ -173,32 +144,27 @@ namespace TechSolutions.Presentacion
 
         private async void btnEnviarCorreo_Click(object sender, EventArgs e)
         {
-            // 1. Verificamos que haya datos
             if (dgvReporteVentas.Rows.Count == 0)
             {
                 MessageBox.Show("Primero debe generar un reporte para poder enviar.", "No hay datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. Pedimos el correo del destinatario
             string emailDestino = Interaction.InputBox(
                 "Ingrese el correo electrónico del destinatario:",
                 "Enviar Reporte por Correo",
                 "");
 
-            // 3. Validamos el correo
             if (string.IsNullOrEmpty(emailDestino) || !emailDestino.Contains("@"))
             {
                 MessageBox.Show("Operación cancelada o correo electrónico no válido.", "Inválido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            // 4. Preparamos los datos
             List<ReporteVenta> reporte = (List<ReporteVenta>)dgvReporteVentas.DataSource;
             DateTime fechaInicio = dtpFechaInicio.Value;
             DateTime fechaFin = dtpFechaFin.Value;
 
-            // 5. --- INICIO ASÍNCRONO ---
             btnEnviarCorreo.Enabled = false;
             btnGenerarReporte.Enabled = false;
             btnImprimir.Enabled = false;
@@ -206,25 +172,27 @@ namespace TechSolutions.Presentacion
 
             try
             {
-                // 6. Llamamos al Helper (al nuevo método)
                 await _emailHelper.EnviarReporteVentasAsync(emailDestino, fechaInicio, fechaFin, reporte);
 
-                // 7. ¡Éxito!
                 MessageBox.Show($"¡Reporte enviado exitosamente a {emailDestino}!", "Envío Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                // 8. Error
                 MessageBox.Show("Error inesperado al enviar el correo: " + ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
-                // 9. --- FIN ASÍNCRONO ---
                 btnEnviarCorreo.Enabled = true;
                 btnGenerarReporte.Enabled = true;
                 btnImprimir.Enabled = true;
                 this.Cursor = Cursors.Default;
             }
+        }
+
+        private void frmReporteVentas_Load(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+            StyleHelper.AplicarEstiloFormulario(this);
         }
     }
 }

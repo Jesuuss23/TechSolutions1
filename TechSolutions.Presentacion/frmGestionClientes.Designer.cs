@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGestionClientes));
             label1 = new Label();
             groupBox1 = new GroupBox();
             btnVerHistorial = new Button();
@@ -60,15 +61,18 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Black", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label1.Location = new Point(253, 22);
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Segoe UI Black", 35F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ButtonHighlight;
+            label1.Location = new Point(544, 9);
             label1.Name = "label1";
-            label1.Size = new Size(293, 41);
+            label1.Size = new Size(578, 78);
             label1.TabIndex = 0;
             label1.Text = "Gestión de Clientes";
             // 
             // groupBox1
             // 
+            groupBox1.BackColor = Color.Transparent;
             groupBox1.Controls.Add(btnVerHistorial);
             groupBox1.Controls.Add(txtDireccion);
             groupBox1.Controls.Add(txtTelefono);
@@ -82,68 +86,73 @@
             groupBox1.Controls.Add(Apellido);
             groupBox1.Controls.Add(Correo);
             groupBox1.Controls.Add(Documento);
-            groupBox1.Location = new Point(23, 108);
+            groupBox1.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            groupBox1.ForeColor = SystemColors.ButtonHighlight;
+            groupBox1.Location = new Point(12, 90);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(506, 262);
+            groupBox1.Size = new Size(784, 555);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Datos del Cliente";
             // 
             // btnVerHistorial
             // 
+            btnVerHistorial.BackColor = Color.Cyan;
             btnVerHistorial.Enabled = false;
-            btnVerHistorial.Location = new Point(305, 137);
+            btnVerHistorial.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            btnVerHistorial.ForeColor = SystemColors.ActiveCaptionText;
+            btnVerHistorial.Location = new Point(500, 216);
             btnVerHistorial.Name = "btnVerHistorial";
-            btnVerHistorial.Size = new Size(141, 53);
+            btnVerHistorial.Size = new Size(197, 73);
             btnVerHistorial.TabIndex = 9;
             btnVerHistorial.Text = "Ver Historial";
-            btnVerHistorial.UseVisualStyleBackColor = true;
+            btnVerHistorial.UseVisualStyleBackColor = false;
             btnVerHistorial.Click += btnVerHistorial_Click;
             // 
             // txtDireccion
             // 
-            txtDireccion.Location = new Point(348, 49);
+            txtDireccion.Location = new Point(183, 462);
             txtDireccion.Name = "txtDireccion";
-            txtDireccion.Size = new Size(125, 27);
+            txtDireccion.Size = new Size(249, 47);
             txtDireccion.TabIndex = 13;
             // 
             // txtTelefono
             // 
-            txtTelefono.Location = new Point(114, 229);
+            txtTelefono.Location = new Point(183, 386);
             txtTelefono.Name = "txtTelefono";
-            txtTelefono.Size = new Size(125, 27);
+            txtTelefono.Size = new Size(249, 47);
             txtTelefono.TabIndex = 12;
             // 
             // txtCorreo
             // 
-            txtCorreo.Location = new Point(118, 185);
+            txtCorreo.Location = new Point(183, 307);
             txtCorreo.Name = "txtCorreo";
-            txtCorreo.Size = new Size(125, 27);
+            txtCorreo.Size = new Size(249, 47);
             txtCorreo.TabIndex = 11;
             // 
             // txtDocumento
             // 
-            txtDocumento.Location = new Point(120, 151);
+            txtDocumento.Location = new Point(183, 227);
             txtDocumento.Name = "txtDocumento";
-            txtDocumento.Size = new Size(125, 27);
+            txtDocumento.Size = new Size(249, 47);
             txtDocumento.TabIndex = 10;
             txtDocumento.TextChanged += txtNombre_TextChanged;
             txtDocumento.Validating += txtNombre_Validating;
             // 
             // txtApellido
             // 
-            txtApellido.Location = new Point(112, 102);
+            txtApellido.Location = new Point(183, 148);
             txtApellido.Name = "txtApellido";
-            txtApellido.Size = new Size(125, 27);
+            txtApellido.Size = new Size(249, 47);
             txtApellido.TabIndex = 9;
             txtApellido.TextChanged += txtNombre_TextChanged;
             txtApellido.Validating += txtNombre_Validating;
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(109, 44);
+            txtNombre.Location = new Point(183, 72);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(125, 27);
+            txtNombre.Size = new Size(249, 47);
             txtNombre.TabIndex = 8;
             txtNombre.TextChanged += txtNombre_TextChanged;
             txtNombre.Validating += txtNombre_Validating;
@@ -151,106 +160,120 @@
             // Direccion
             // 
             Direccion.AutoSize = true;
-            Direccion.Location = new Point(269, 47);
+            Direccion.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            Direccion.Location = new Point(29, 462);
             Direccion.Name = "Direccion";
-            Direccion.Size = new Size(72, 20);
+            Direccion.Size = new Size(132, 35);
             Direccion.TabIndex = 7;
-            Direccion.Text = "Dirección";
+            Direccion.Text = "Dirección:";
             // 
             // Nombre
             // 
             Nombre.AutoSize = true;
-            Nombre.Location = new Point(28, 47);
+            Nombre.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            Nombre.Location = new Point(41, 80);
             Nombre.Name = "Nombre";
-            Nombre.Size = new Size(64, 20);
+            Nombre.Size = new Size(120, 35);
             Nombre.TabIndex = 2;
-            Nombre.Text = "Nombre";
+            Nombre.Text = "Nombre:";
             // 
             // Telefono
             // 
             Telefono.AutoSize = true;
-            Telefono.Location = new Point(28, 220);
+            Telefono.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            Telefono.Location = new Point(39, 394);
             Telefono.Name = "Telefono";
-            Telefono.Size = new Size(67, 20);
+            Telefono.Size = new Size(125, 35);
             Telefono.TabIndex = 6;
-            Telefono.Text = "Teléfono";
+            Telefono.Text = "Teléfono:";
             // 
             // Apellido
             // 
             Apellido.AutoSize = true;
-            Apellido.Location = new Point(26, 101);
+            Apellido.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            Apellido.Location = new Point(42, 151);
             Apellido.Name = "Apellido";
-            Apellido.Size = new Size(66, 20);
+            Apellido.Size = new Size(121, 35);
             Apellido.TabIndex = 3;
-            Apellido.Text = "Apellido";
+            Apellido.Text = "Apellido:";
             // 
             // Correo
             // 
             Correo.AutoSize = true;
-            Correo.Location = new Point(28, 183);
+            Correo.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            Correo.Location = new Point(58, 307);
             Correo.Name = "Correo";
-            Correo.Size = new Size(54, 20);
+            Correo.Size = new Size(102, 35);
             Correo.TabIndex = 5;
-            Correo.Text = "Correo";
+            Correo.Text = "Correo:";
             // 
             // Documento
             // 
             Documento.AutoSize = true;
-            Documento.Location = new Point(26, 146);
+            Documento.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            Documento.Location = new Point(0, 232);
             Documento.Name = "Documento";
-            Documento.Size = new Size(87, 20);
+            Documento.Size = new Size(159, 35);
             Documento.TabIndex = 4;
-            Documento.Text = "Documento";
+            Documento.Text = "Documento:";
             // 
             // btnRegistrar
             // 
+            btnRegistrar.BackColor = Color.LawnGreen;
             btnRegistrar.Enabled = false;
-            btnRegistrar.Location = new Point(72, 396);
+            btnRegistrar.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            btnRegistrar.Location = new Point(128, 741);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.Size = new Size(94, 29);
+            btnRegistrar.Size = new Size(207, 95);
             btnRegistrar.TabIndex = 2;
             btnRegistrar.Text = "Registrar";
-            btnRegistrar.UseVisualStyleBackColor = true;
+            btnRegistrar.UseVisualStyleBackColor = false;
             btnRegistrar.Click += btnRegistrar_Click;
             // 
             // btnActualizar
             // 
-            btnActualizar.Location = new Point(253, 396);
+            btnActualizar.BackColor = Color.Yellow;
+            btnActualizar.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            btnActualizar.Location = new Point(990, 741);
             btnActualizar.Name = "btnActualizar";
-            btnActualizar.Size = new Size(94, 29);
+            btnActualizar.Size = new Size(200, 95);
             btnActualizar.TabIndex = 3;
             btnActualizar.Text = "Actualizar";
-            btnActualizar.UseVisualStyleBackColor = true;
+            btnActualizar.UseVisualStyleBackColor = false;
             btnActualizar.Click += btnActualizar_Click;
             // 
             // btnLimpiar
             // 
-            btnLimpiar.Location = new Point(400, 396);
+            btnLimpiar.BackColor = Color.Beige;
+            btnLimpiar.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            btnLimpiar.Location = new Point(563, 741);
             btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new Size(146, 29);
+            btnLimpiar.Size = new Size(214, 95);
             btnLimpiar.TabIndex = 4;
             btnLimpiar.Text = "Limpiar Campos";
-            btnLimpiar.UseVisualStyleBackColor = true;
+            btnLimpiar.UseVisualStyleBackColor = false;
             btnLimpiar.Click += btnLimpiar_Click;
             // 
             // dgvClientes
             // 
             dgvClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvClientes.BackgroundColor = Color.Aquamarine;
             dgvClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvClientes.Location = new Point(633, 167);
+            dgvClientes.Location = new Point(839, 185);
             dgvClientes.Name = "dgvClientes";
             dgvClientes.ReadOnly = true;
             dgvClientes.RowHeadersWidth = 51;
-            dgvClientes.Size = new Size(516, 339);
+            dgvClientes.Size = new Size(885, 482);
             dgvClientes.TabIndex = 5;
             dgvClientes.CellClick += dgvClientes_CellClick;
             // 
             // btnEliminar
             // 
             btnEliminar.BackColor = Color.Red;
-            btnEliminar.Location = new Point(256, 462);
+            btnEliminar.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            btnEliminar.Location = new Point(1357, 741);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(94, 29);
+            btnEliminar.Size = new Size(196, 95);
             btnEliminar.TabIndex = 6;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = false;
@@ -259,17 +282,20 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(621, 105);
+            label2.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            label2.Location = new Point(839, 116);
             label2.Name = "label2";
-            label2.Size = new Size(55, 20);
+            label2.Size = new Size(136, 46);
             label2.TabIndex = 7;
             label2.Text = "Buscar:";
+            label2.Click += label2_Click;
             // 
             // txtBuscar
             // 
-            txtBuscar.Location = new Point(821, 107);
+            txtBuscar.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            txtBuscar.Location = new Point(987, 121);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(125, 27);
+            txtBuscar.Size = new Size(737, 41);
             txtBuscar.TabIndex = 8;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
             // 
@@ -281,7 +307,8 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1161, 542);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            ClientSize = new Size(1755, 898);
             Controls.Add(txtBuscar);
             Controls.Add(label2);
             Controls.Add(btnEliminar);
