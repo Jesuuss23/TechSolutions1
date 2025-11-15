@@ -44,6 +44,7 @@
             dgvUltimasVentas = new DataGridView();
             groupBox3 = new GroupBox();
             dgvBajoStock = new DataGridView();
+            btnRefrescarDashboard = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUltimasVentas).BeginInit();
@@ -229,12 +230,25 @@
             dgvBajoStock.Size = new Size(734, 354);
             dgvBajoStock.TabIndex = 0;
             // 
+            // btnRefrescarDashboard
+            // 
+            btnRefrescarDashboard.BackColor = Color.Yellow;
+            btnRefrescarDashboard.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+            btnRefrescarDashboard.Location = new Point(1191, 14);
+            btnRefrescarDashboard.Name = "btnRefrescarDashboard";
+            btnRefrescarDashboard.Size = new Size(217, 63);
+            btnRefrescarDashboard.TabIndex = 10;
+            btnRefrescarDashboard.Text = "Refrescar Datos";
+            btnRefrescarDashboard.UseVisualStyleBackColor = false;
+            btnRefrescarDashboard.Click += btnRefrescarDashboard_Click;
+            // 
             // frmMenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1742, 847);
+            Controls.Add(btnRefrescarDashboard);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -274,5 +288,6 @@
         private DataGridView dgvUltimasVentas;
         private GroupBox groupBox3;
         private DataGridView dgvBajoStock;
+        private Button btnRefrescarDashboard;
     }
 }

@@ -117,7 +117,7 @@ namespace TechSolutions.Presentacion
             {
                 Dashboard dashboardData = _dashboardBLL.ObtenerDatosDashboard();
 
-                lblVentasHoy.Text = dashboardData.TotalVentasHoy.ToString("C"); 
+                lblVentasHoy.Text = dashboardData.TotalVentasHoy.ToString("C");
 
                 dgvBajoStock.DataSource = null;
                 dgvBajoStock.DataSource = dashboardData.ProductosBajoStock;
@@ -149,6 +149,24 @@ namespace TechSolutions.Presentacion
             this.CerrarSesion = true;
 
             this.Close();
+        }
+
+        private void btnRefrescarDashboard_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Llamamos al método que ya existe para actualizar el dashboard
+                CargarDatosDashboard();
+
+                MessageBox.Show("Datos del Dashboard actualizados.",
+                                "Actualización Completa",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al refrescar el Dashboard: " + ex.Message, "Error Crítico");
+            }
         }
     }
 
